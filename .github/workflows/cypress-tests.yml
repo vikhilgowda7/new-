@@ -25,14 +25,28 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Create reports directory
+        run: mkdir -p cypress/reports
 
       - name: Run Cypress tests
         run: npm run test:ci
         continue-on-error: true # Continue even if tests fail to generate reports
 
       - name: Generate test report
-        run: npm run report:merge
+        run: |
+          if ls cypress/reports/*.json 1> /dev/null 2>&1; then
+            npm run report:merge
+            npm run report:html
+          else
+            echo "No test report JSON files found. Skipping report generation."
+          fi
         if: always() # Run even if tests fail
 
       - name: Upload test results
@@ -52,14 +66,14 @@ jobs:
         if: always()
         with:
           name: cypress-html-report
-          path: cypress/reports/mochawesome-report/
+          path: cypress/reports/html/
           retention-days: 30
 
       - name: Test Summary
         run: |
           echo "## Test Execution Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f "cypress/reports/mochawesome-report/mochawesome.json" ]; then
+          if [ -f "cypress/reports/merged-report.json" ]; then
             echo "✅ Test reports generated successfully" >> $GITHUB_STEP_SUMMARY
           else
             echo "❌ Test reports generation failed" >> $GITHUB_STEP_SUMMARY
