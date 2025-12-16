@@ -1,0 +1,46 @@
+{
+  "name": "foreststack",
+  "version": "1.0.0",
+  "description": "ForestStack Cypress Automation Framework",
+  "main": "index.js",
+
+  "scripts": {
+    
+
+    "testcode": "node_modules\\.bin\\cypress run",
+    "test": "cypress run",
+    "test:open": "cypress open",
+    "test:headless": "cypress run --headless",
+    "test:spec": "cypress run --spec",
+    "test:ci": "cypress run",
+
+    "report:merge": "mochawesome-merge cypress/reports/*.json -o cypress/reports/merged-report.json",
+    "report:html": "marge cypress/reports/merged-report.json -o cypress/reports/html",
+    "report:open": "start cypress/reports/html/index.html",
+
+    "clean:reports": "powershell -Command \"Remove-Item -Recurse -Force cypress\\reports, cypress\\screenshots, cypress\\videos -ErrorAction SilentlyContinue\"",
+
+    
+
+    "ci:run": "npm run clean:reports && npm run test:ci",
+    "ci:report": "npm run report:merge && npm run report:html",
+    "ci:full": "npm run ci:run && npm run ci:report"
+  },
+
+  "keywords": [
+    "cypress",
+    "automation",
+    "testing"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+
+  "devDependencies": {
+    "cypress": "^15.7.0",
+    "cypress-xpath": "^2.0.1",
+    "mochawesome": "^7.1.4",
+    "mochawesome-merge": "^4.4.1",
+    "mochawesome-report-generator": "^6.3.2"
+  }
+}

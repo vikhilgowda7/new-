@@ -1,0 +1,5 @@
+test_case,description,username,password,expected_result,check_username_error,check_password_error,expected_error_text
+1,Verify the error messages displayed at username and password field when valid username and invalid password,vikhilgowda7@gmail.com,Cdpg@125,error,TRUE,TRUE,Invalid username or password.
+2,Verify the error messages displayed at username field when invalid username and valid password,vikhilgowdatest7@gmail.com,Cdpg@123,error,TRUE,FALSE,Invalid username or password.
+3,Verify the error messages displayed at username field when username and password are blank,,,error,TRUE,FALSE,Invalid username or password.
+4,Verify the login successful by entering the valid username and password.,vikhilgowda7@gmail.com,Cdpg@123,success,FALSE,FALSE,

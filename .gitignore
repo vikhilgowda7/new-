@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+cypress/reports/*.json
+cypress/reports/*.html
+
+# Keep directory structure but ignore files
+!cypress/reports/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+
